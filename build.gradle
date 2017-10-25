@@ -1,0 +1,75 @@
+group 'info.developerblog'
+version '0.0.1'
+
+buildscript {
+    ext.kotlin_version = '1.1.51'
+    ext.spek_version = '1.1.5'
+    ext.junit_runner_version = '1.0.1'
+
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath("org.jetbrains.kotlin:kotlin-allopen:$kotlin_version")
+        classpath "com.bmuschko:gradle-docker-plugin:3.1.0"
+        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_runner_version"
+    }
+}
+
+apply plugin: 'application'
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: 'com.bmuschko.docker-java-application'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+junitPlatform {
+    platformVersion '1.0.1'
+    filters {
+        engines {
+            include 'spek'
+        }
+    }
+}
+
+dependencies {
+    //kotlin
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlin_version"
+    compile("org.jetbrains.kotlin:kotlin-script-util:$kotlin_version") {
+        exclude module: 'kotlin-compiler'
+    }
+
+    //guava
+    compile 'com.google.guava:guava:23.2-jre'
+
+    //spek tests
+    testCompile "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    testCompile "org.jetbrains.spek:spek-api:$spek_version"
+    testCompile "org.junit.platform:junit-platform-runner:$junit_runner_version"
+    testRuntime "org.jetbrains.spek:spek-junit-platform-engine:$spek_version"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+processResources {
+    from 'src/main/kotlin/scripts'
+}
+
+mainClassName = 'info.developerblog.ConsoleExecutorKt'
