@@ -23,7 +23,17 @@ Kotlin scripts should have `.kts` extension. For example `hello.kts`.
 
 ## Launch scripts
 You could launch your scripts with IDE as general Kotlin app. Use ConsoleExecutor class for it.
-In program arguments you should provide name of script without extension as the first argument.
+In program arguments you should provide name of script without extension as the first argument:
+
+```
+./gradlew run -Dexec.args="<script_name_wo_dotkts>"
+```
+
+Launch the example script `hello.kts`:
+
+```
+./gradlew run -Dexec.args="hello"
+```
 
 Or you could build docker image:
 ```
