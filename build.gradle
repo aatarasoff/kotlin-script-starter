@@ -2,9 +2,9 @@ group 'info.developerblog'
 version '0.0.1'
 
 buildscript {
-    ext.kotlin_version = '1.1.51'
+    ext.kotlin_version = '1.2.20'
     ext.spek_version = '1.1.5'
-    ext.junit_runner_version = '1.0.1'
+    ext.junit_runner_version = '1.0.2'
 
     repositories {
         mavenLocal()
@@ -33,7 +33,7 @@ repositories {
 }
 
 junitPlatform {
-    platformVersion '1.0.1'
+    platformVersion '1.0.2'
     filters {
         engines {
             include 'spek'
@@ -70,6 +70,11 @@ compileTestKotlin {
 
 processResources {
     from 'src/main/kotlin/scripts'
+}
+
+run {
+    standardInput = System.in
+    args System.getProperty("exec.args", "").split()
 }
 
 mainClassName = 'info.developerblog.ConsoleExecutorKt'
