@@ -2,7 +2,7 @@ group 'info.developerblog'
 version '0.0.1'
 
 buildscript {
-    ext.kotlin_version = '1.2.20'
+    ext.kotlin_version = '1.2.31'
     ext.spek_version = '1.1.5'
     ext.junit_runner_version = '1.0.2'
 
@@ -46,9 +46,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlin_version"
-    compile("org.jetbrains.kotlin:kotlin-script-util:$kotlin_version") {
-        exclude module: 'kotlin-compiler'
-    }
+    compile "org.jetbrains.kotlin:kotlin-script-util:$kotlin_version"
 
     //guava
     compile 'com.google.guava:guava:23.2-jre'
